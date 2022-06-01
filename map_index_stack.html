@@ -39,20 +39,22 @@ d3.queue()
   .defer(d3.csv, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_gpsLocSurfer.csv") // Position of circles
   .await(ready);
 
-    // Create and configure a path generator
-    var pathGenerator = d3.geoPath()
-      .projection(projection);
+// Create and configure a path generator
+var pathGenerator = d3.geoPath()
+    .projection(projection);
 
-    // Create and configure the graticule generator (one line every 20 degrees)
-    var graticule = d3.geoGraticule()
-    //.step([1, 1]);
+// Create and configure the graticule generator (one line every 20 degrees)
+var graticule = d3.geoGraticule()
+//.step([10, 10]);
     
 
-    // Graticule lines (behind the land)
-    var lines = svgmap.selectAll('path.graticule').data([graticule()]);
-        lines.enter().append('path').classed('graticule', true);
-        lines.attr('d', pathGenerator);
-        lines.exit().remove();
+// Graticule lines (behind the land)
+var lines = svgmap.selectAll('path.graticule').data([graticule()]);
+    lines.enter().append("path").classed('graticule',true).attr('d', pathGenerator)
+    //lines.enter().append('path').classed('graticule', true);
+    //lines.attr('d', pathGenerator);
+    lines.exit().remove();
+    
 
 
 function ready(error, dataGeo, data) {
